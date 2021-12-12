@@ -37,7 +37,7 @@ float resist_percent(int res, float myst_bonus) {
 	return projected_res;
 }
 
-float actual_damage(int res, float myst_bonus) {
+float actual_damage(int res, float myst_bonus, int projected_damage) {
 	float projected_res = 1-resist_percent(res, myst_bonus);
 	float actual_damage = projected_res*projected_damage;
 	return actual_damage;
@@ -55,7 +55,7 @@ boolean check_food(int res, int level, boolean myst, int hp, int max_hp, string 
 	int actual_damage;
 	projected_damage = max_hp * max(20 - level, 1);
 	while (res_needed < 30) {
-	        actual_damage = actual_damage(res_needed, myst_bonus);
+	        actual_damage = actual_damage(res_needed, myst_bonus, projected_damage);
 		if (actual_damage < max_hp) {
 			break;
 		}
@@ -70,7 +70,7 @@ boolean check_food(int res, int level, boolean myst, int hp, int max_hp, string 
 	print("Damage Dealt: " + actual_damage + " at res: " + res_needed);
 	if (res >= res_needed) {
 		print("You have sufficient "+type+" res: "+res);
-	        actual_damage = actual_damage(res, myst_bonus);
+	        actual_damage = actual_damage(res, myst_bonus, projected_damage);
 		print("Damage at current res: "+actual_damage);
 	} else {
 		print("You need: " + (res_needed-res) + " more "+type+" res");
