@@ -34,10 +34,11 @@ boolean check_stash_item(item it) {
 boolean [item] all_items = $items[platinum yendorian express card, moveable feast, pantsgiving, operation patriot shield, Buddy Bjorn, Crown of Thrones, Repaid Diaper];
 boolean [item] all_items_minus_shield = $items[platinum yendorian express card, moveable feast, pantsgiving, Buddy Bjorn, Crown of Thrones, Repaid Diaper];
 
-boolean check_all_stash() {
+boolean check_stash_lst(boolean [item] it_lst) {
 	cli_execute("refresh inventory");
+	visit_url("clan_stash.php");
 	boolean all = true;
-	foreach it in all_items {
+	foreach it in it_lst {
 		if (!check_stash_item(it)) {
 			all = false;
 		}
@@ -46,17 +47,11 @@ boolean check_all_stash() {
 	return all;
 }
 
+boolean check_all_stash() {
+	return check_stash_lst(all_items);
+}
 boolean check_all_but_shield_stash() {
-	cli_execute("refresh inventory");
-	cli_execute("/go stash");
-	boolean all = true;
-	foreach it in all_items_minus_shield {
-		if (!check_stash_item(it)) {
-			all = false;
-		}
-	}
-	print("Finished");
-	return all;
+	return check_stash_lst(all_items_minus_shield);
 }
 
 void take_all_stash() {
@@ -101,5 +96,3 @@ void main(string arg) {
 			break;
 	}
 }
-
-// cli_execute("CONSUME SIM");
