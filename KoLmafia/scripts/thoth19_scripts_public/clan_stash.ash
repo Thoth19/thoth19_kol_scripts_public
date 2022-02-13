@@ -31,9 +31,26 @@ boolean check_stash_item(item it) {
 	return true;
 }
 
+boolean [item] all_items = $items[platinum yendorian express card, moveable feast, pantsgiving, operation patriot shield, Buddy Bjorn, Crown of Thrones, Repaid Diaper];
+boolean [item] all_items_minus_shield = $items[platinum yendorian express card, moveable feast, pantsgiving, Buddy Bjorn, Crown of Thrones, Repaid Diaper];
+
 boolean check_all_stash() {
+	cli_execute("refresh inventory");
 	boolean all = true;
-	foreach it in $items[platinum yendorian express card, moveable feast, pantsgiving, operation patriot shield, Buddy Bjorn] {
+	foreach it in all_items {
+		if (!check_stash_item(it)) {
+			all = false;
+		}
+	}
+	print("Finished");
+	return all;
+}
+
+boolean check_all_but_shield_stash() {
+	cli_execute("refresh inventory");
+	cli_execute("/go stash");
+	boolean all = true;
+	foreach it in all_items_minus_shield {
 		if (!check_stash_item(it)) {
 			all = false;
 		}
@@ -43,25 +60,31 @@ boolean check_all_stash() {
 }
 
 void take_all_stash() {
-	foreach it in $items[platinum yendorian express card, moveable feast, pantsgiving, operation patriot shield, Buddy Bjorn] {
+	foreach it in all_items {
 		cli_execute("stash take "+it.name);
 	}
-	foreach it in $items[platinum yendorian express card, moveable feast, pantsgiving, operation patriot shield, Buddy Bjorn] {
+	foreach it in all_items {
 		cli_execute("inv "+it.name);
 	}
 	print("Finished");	
 }
 void put_all_stash() {
-	foreach it in $items[platinum yendorian express card, moveable feast, pantsgiving, operation patriot shield, Buddy Bjorn] {
-		cli_execute("stash put "+it.name);
+	foreach it in all_items {
+		if (item_amount(it) > 0) {
+			cli_execute("stash put "+it.name);
+		}
 	}
-	foreach it in $items[platinum yendorian express card, moveable feast, pantsgiving, operation patriot shield, Buddy Bjorn] {
+	foreach it in all_items {
 		cli_execute("inv "+it.name);
 	}
 	print("Finished");	
 }
 
 void main(string arg) {
+	if (get_clan_name() != "Redemption City"){
+		print("Not in correct clan");
+		return;
+	}
 	switch (arg) {
 		case "":
 		case " ":
