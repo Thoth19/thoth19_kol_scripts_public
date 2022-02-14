@@ -31,8 +31,8 @@ boolean check_stash_item(item it) {
 	return true;
 }
 
-boolean [item] all_items = $items[platinum yendorian express card, moveable feast, pantsgiving, operation patriot shield, Buddy Bjorn, Crown of Thrones, Repaid Diaper];
-boolean [item] all_items_minus_shield = $items[platinum yendorian express card, moveable feast, pantsgiving, Buddy Bjorn, Crown of Thrones, Repaid Diaper];
+boolean [item] all_items = $items[platinum yendorian express card, moveable feast, pantsgiving, operation patriot shield, Buddy Bjorn, Crown of Thrones, Repaid Diaper, spooky putty sheet];
+boolean [item] all_items_minus_shield = $items[platinum yendorian express card, moveable feast, pantsgiving, Buddy Bjorn, Crown of Thrones, Repaid Diaper, spooky putty sheet];
 
 boolean check_stash_lst(boolean [item] it_lst) {
 	cli_execute("refresh inventory");
