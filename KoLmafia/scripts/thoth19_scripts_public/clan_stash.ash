@@ -31,8 +31,8 @@ boolean check_stash_item(item it) {
 	return true;
 }
 
-boolean [item] all_items = $items[platinum yendorian express card, moveable feast, pantsgiving, operation patriot shield, Buddy Bjorn, Crown of Thrones, Repaid Diaper, spooky putty sheet];
-boolean [item] all_items_minus_shield = $items[platinum yendorian express card, moveable feast, pantsgiving, Buddy Bjorn, Crown of Thrones, Repaid Diaper, spooky putty sheet];
+boolean [item] all_items = $items[platinum yendorian express card, moveable feast, pantsgiving, operation patriot shield, Buddy Bjorn, Crown of Thrones, Repaid Diaper, spooky putty sheet, origami pasties];
+boolean [item] all_items_minus_shield = $items[platinum yendorian express card, moveable feast, pantsgiving, Buddy Bjorn, Crown of Thrones, Repaid Diaper, spooky putty sheet, origami pasties];
 
 boolean check_stash_lst(boolean [item] it_lst) {
 	cli_execute("refresh inventory");
@@ -64,6 +64,10 @@ void take_all_stash() {
 	print("Finished");	
 }
 void put_all_stash() {
+	cli_execute("/unequip hat");
+	cli_execute("/unequip pants");
+	cli_execute("/unequip back");
+	cli_execute("/unequip shirt");
 	foreach it in all_items {
 		if (item_amount(it) > 0) {
 			cli_execute("stash put "+it.name);
