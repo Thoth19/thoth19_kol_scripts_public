@@ -1,6 +1,8 @@
 script TimeTracking;
 import proft_tracking;
 
+/* https://pastebin.com/EyMQWtbp for profit_tracking from The Dictator*/
+
 /* Time Tracking EZ mode */
 string generate_filename(string event, string date){
 	return "/TimeTracking/"+my_name()+"/"+date+" "+event+".txt";
