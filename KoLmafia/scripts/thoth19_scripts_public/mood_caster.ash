@@ -38,7 +38,7 @@ while (true) {
 	# print(s);
 	if (check_safe_to_cast(s)) {
 		// Optimization for low cost skills
-		if (mp_cost(s) < 11 && mp_mp() - mp_cost(s) * 10 > 50) {
+		if (mp_cost(s) < 11 && my_mp() - mp_cost(s) * 10 > 50) {
 			use_skill(9, s);
 		}
 		use_skill(s);
