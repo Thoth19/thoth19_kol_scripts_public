@@ -97,9 +97,14 @@ void compare_using_list() {
 	string[int] split_map = split_string(get_property("thoth19_event_list"), ",");
 	string event1 = split_map[0];
 	string event2;
-	remove split_map[0];
-	foreach it in split_map {
+	int last = count(split_map) -1;
+	if (last < 1) {
+		print("Not enough breakpoints in list");
+		return;
+	}
+	for it from 1 to last {
 	   event2 = split_map[it];
+	   print("Now comparing " + event1 + " and " + event2);
 	   compare_both(event1, event2);
 	   event1 = event2;
 	}
