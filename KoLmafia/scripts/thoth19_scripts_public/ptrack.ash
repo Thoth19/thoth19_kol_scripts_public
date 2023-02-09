@@ -5,6 +5,7 @@ boolean resetDailyTracking();
 void addBreakpoint(string name);
 void pBreakfast();
 void compareBreakpoints(string bp1, string bp2);
+void compare_using_list_and_date(string date);
 void printBreakpointList();
 void printBreakpointListComparison();
 void printHelp();
@@ -62,12 +63,29 @@ void printBreakpointListComparison() {
         print_html("<b>Not enough Breakpoints found on " + date + "</b>");
         return;
     }
-    print_html("<font color=0000ff><b>Now comparing all of Today's Breakpoints...</b></font>");
-    compare_using_list();
+    print_html("<font color=0000ff><b>Now comparing all of " + date + "'s Breakpoints...</b></font>");
+    compare_using_list_and_date(date);
     print_html("<font color=0000ff><b>Comparing your First and Last Breakpoints</b></font>");
     int last = count(split_map) - 1;
-    compare_both(split_map[0], split_map[last]);
+    compare_both(date, split_map[0], date, split_map[last]);
     print_html("<font color=eda800><b>Thank you for using ptrack breakpoints wrapper</b></font>");
+}
+
+void compare_using_list_and_date(string date) {
+	string[int] split_map = split_string(get_property("thoth19_event_list"), ",");
+	string event1 = split_map[0];
+	string event2;
+	int last = count(split_map) -1;
+	if (last < 1) {
+		print("Not enough breakpoints in list");
+		return;
+	}
+	for it from 1 to last {
+	   event2 = split_map[it];
+	   print("Now comparing " + event1 + " and " + event2);
+	   compare_both(date, event1, date, event2);
+	   event1 = event2;
+	}
 }
 
 void printHelp() {
